@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 public class Book
 {
@@ -27,16 +26,13 @@ public class Library
         {
             foreach (Book b in books)
             {
-                if (b != null &&
-                    b.Title.Equals(title,
-                    StringComparison.OrdinalIgnoreCase))
+                if (b != null && b.Title.Equals(title,StringComparison.OrdinalIgnoreCase))
                 {
                     return b;
                 }
             }
 
-            throw new ArgumentOutOfRangeException(
-                nameof(title), "Book title not found.");
+            throw new ArgumentOutOfRangeException(nameof(title),"Book title not found.");
         }
     }
 }
@@ -47,17 +43,14 @@ class Program
 {
     static void DisplayBook(Book b)
     {
-        Console.WriteLine(
-            $"Title: {b.Title}, Author: {b.Author}, " +
-            $"Price: {b.Price}, Copies: {b.Copies}");
+        Console.WriteLine($"Title: {b.Title}, Author: {b.Author}," +$"Price: {b.Price}, Copies: {b.Copies}");
     }
 
     static void DisplayExpensive(Book b)
     {
         if (b.Price > 1000)
         {
-            Console.WriteLine(
-                $"Expensive Book: {b.Title} - {b.Price}");
+            Console.WriteLine($"Expensive Book: {b.Title} - {b.Price}");
         }
     }
 
@@ -68,8 +61,7 @@ class Program
      
         for (int i = 0; i < 5; i++)
         {
-            Console.WriteLine(
-                $"\nEnter details for Book {i + 1}");
+            Console.WriteLine($"\nEnter details for Book {i + 1}");
 
             while (true)
             {
@@ -91,24 +83,27 @@ class Program
 
                     if (b.Copies < 0)
                     {
-                        throw new ArgumentOutOfRangeException(
-                            nameof(b.Copies),
-                            "Copies cannot be negative.");
+                        throw new ArgumentOutOfRangeException(nameof(b.Copies),"Copies cannot be negative.");
                     }
 
                     library[i] = b;
+                    
                     break;
                 }
+
+                
                 catch (FormatException)
                 {
-                    Console.WriteLine(
-                        "Invalid input. Enter a numeric price " +
-                        "and a whole number for copies. Try again.");
+                    Console.WriteLine("Invalid input. Enter a numeric price "+"and a whole number for copies. Try again.");
                 }
+
+                
                 catch (ArgumentOutOfRangeException ex)
                 {
                     Console.WriteLine("Error: " + ex.Message);
                 }
+
+                
                 finally
                 {
                     Console.WriteLine("Input attempt completed.");
@@ -120,6 +115,7 @@ class Program
         Console.WriteLine("\n--- Complete Book List ---");
 
         BookOperation operation = DisplayBook;
+        
         operation += DisplayExpensive;
 
         for (int i = 0; i < 5; i++)
@@ -139,10 +135,12 @@ class Program
         }
 
         Console.WriteLine("\n--- Most Expensive Book ---");
+        
         DisplayBook(mostExpensive);
 
        
         Console.Write("\nEnter a title to search: ");
+        
         string searchTitle = Console.ReadLine();
 
         try
@@ -150,8 +148,11 @@ class Program
             Book found = library[searchTitle];
 
             Console.WriteLine("\nBook found:");
+            
             DisplayBook(found);
         }
+
+        
         catch (ArgumentOutOfRangeException ex)
         {
             Console.WriteLine("Search error: " + ex.Message);
